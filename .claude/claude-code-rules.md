@@ -184,6 +184,65 @@ type CreateUserInput = z.infer<typeof createUserSchema>
   - E2E Tests（必要に応じて）
 - **テスト駆動開発**: 可能な限りTDDアプローチを採用
 
+## 14. ディレクトリ構成
+
+```
+project-root/
+├── .claude/                     # Claude Code設定ディレクトリ
+│   └── claude-code-rules.md     # プロジェクト固有のコーディングルール
+├── e2e/                         # E2Eテストディレクトリ
+│   ├── fixtures/                # テスト共通設定・ユーティリティ
+│   │   └── *.ts                 # テストベース設定
+│   ├── pages/                   # Page Objectモデル
+│   │   └── *.page.ts            # 各ページの操作を抽象化
+│   └── specs/                   # テストスペック
+│       └── *.spec.ts            # 実際のテストケース
+├── public/                      # 静的ファイルディレクトリ
+│   └── *.*                      # 画像、アイコン、フォントなど
+├── src/                         # メインソースコードディレクトリ
+│   ├── app/                     # Next.js App Router
+│   │   ├── api/                 # API Routes
+│   │   │   └── */
+│   │   │       └── route.ts     # RESTエンドポイント
+│   │   ├── sample               # サンプルルーティング
+│   │   │   ├── layout.tsx       # サンプルのレイアウト
+│   │   │   ├── loading.tsx      # サンプルのローディングUI
+│   │   │   ├── error.tsx        # サンプルのエラーUI
+│   │   │   └── page.tsx         # サンプルのページ
+│   │   ├── page.tsx             # ページコンポーネント
+│   │   ├── layout.tsx           # レイアウトコンポーネント
+│   │   ├── loading.tsx          # ローディングUI
+│   │   ├── error.tsx            # エラーUI
+│   │   ├── not-found.tsx        # 404ページ
+│   │   ├── globals.css          # グローバルスタイル
+│   │   └── favicon.ico          # ファビコン
+│   ├── components/              # Reactコンポーネント
+│   │   ├── domain/              # ドメイン固有コンポーネント
+│   │   │   └── *.tsx            # 機能別コンポーネント
+│   │   ├── provider/            # プロバイダーコンポーネント
+│   │   │   └── *.tsx            # 機能別コンポーネント
+│   │   └── ui/                  # 汎用UIコンポーネント
+│   │       └── *.tsx            # ボタン、フォーム等
+│   └── lib/                     # ビジネスロジック・ユーティリティ
+│       ├── actions/             # Server Actions
+│       │   └── *.ts             # フォーム処理・Mutation
+│       ├── constants/           # 定数定義
+│       │   └── *.ts             # 設定値、列挙型等
+│       ├── schemas/             # Zodスキーマ
+│       │   └── *.ts             # データバリデーション
+│       ├── services/            # 外部サービス連携
+│       │   └── *.ts             # API クライアント
+│       └── utils/               # ユーティリティ関数
+│           └── *.ts             # ヘルパー関数
+├── biome.json                   # Biomeリンター・フォーマッター設定
+├── next.config.*                # Next.js設定
+├── package.json                 # 依存関係・スクリプト定義
+├── playwright.config.*          # Playwright E2Eテスト設定
+├── postcss.config.*             # PostCSS設定
+├── tsconfig.json                # TypeScript設定
+└── README.md                    # プロジェクトドキュメント
+```
+
 ## 適用順序
 1. Zodスキーマを定義し、型を推論
 2. バリデーションロジックを実装
